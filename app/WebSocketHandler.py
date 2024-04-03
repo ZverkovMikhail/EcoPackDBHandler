@@ -1,7 +1,5 @@
-import asyncio
 import enum
 import json
-import time
 import traceback
 from abc import abstractmethod
 from typing import List
@@ -31,15 +29,8 @@ class WebSocketData:
 
 
 class WebSocketObserver:
-    """
-    The Observer interface declares the update method, used by subjects.
-    """
-
     @abstractmethod
     def update(self, data: WebSocketData) -> None:
-        """
-        Receive update from subject.
-        """
         pass
 
 
@@ -81,8 +72,5 @@ class WebSocketHandler:
         self.__observers.remove(observer)
 
     def notify(self, data: WebSocketData) -> None:
-        """
-        Trigger an update in each subscriber.
-        """
         for observer in self.__observers:
             observer.update(data)
