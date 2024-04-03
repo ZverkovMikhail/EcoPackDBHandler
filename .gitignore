@@ -1,0 +1,4 @@
+/dbdata/*
+/app/log/controller.log
+.idea
+/venv/

@@ -1,0 +1,44 @@
+version: '3.3'
+services:
+  mysql:
+    image: mysql:8
+    container_name: values-db
+    restart: always
+    ports:
+      - "${MYSQL_PORT}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ}
+    volumes:
+      - ./dbdata:/var/lib/mysql/
+  adminer:
+    image: adminer
+    depends_on:
+      - mysql
+    container_name: values-db-adminer
+    restart: always
+    ports:
+      - 1988:8080
+    environment:
+      ADMINER_DESIGN: pappu687
+      ADMINER_DEFAULT_SERVER: values-db
+
+  eco_db_handler:
+    container_name: eco_db_handler
+    build: app/.
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_TABLE_NAME: ${MYSQL_TABLE_NAME}
+      WEBSOCKET_URL: ${WEBSOCKET_URL}
+      TZ: ${TZ}
+    volumes:
+      - ./app:/app/
