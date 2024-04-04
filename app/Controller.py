@@ -1,19 +1,12 @@
 import os
 import time
-from pathlib import Path
-
 import mysql.connector
 import mysql
 import logging
-
 from DbHandler import DbHandler
 from WebSocketHandler import WebSocketHandler, WebSocketObserver, WebSocketStatus
 
-
-log_path = Path('logs/')
-log_path.mkdir(parents=True, exist_ok=True)
-
-logging.basicConfig(filename=f'{log_path}/controller.log', filemode='a', format='%(asctime)s %(levelname)s %(message)s', datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
 
 class Controller(WebSocketObserver):
