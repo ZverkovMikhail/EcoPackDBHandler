@@ -85,6 +85,6 @@ class DbHandler:
 
         self.__db_connection = mysql.connector.connect(
             user=self.user_name, password=self.user_pass,
-            host='mysql',
+            host='values_db',
             database=self.db_name
         )
