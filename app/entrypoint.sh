@@ -1,5 +1,5 @@
-#! /bin/bash
-while ! mysqladmin ping -h mysql --silent;
+#!/bin/sh
+while ! mysqladmin ping -h values_db --silent;
 do
   sleep 1
 done

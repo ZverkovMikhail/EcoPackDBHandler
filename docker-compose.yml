@@ -1,8 +1,8 @@
 version: '3.3'
 services:
-  mysql:
+  values_db:
     image: mysql:8
-    container_name: values-db
+    container_name: values_db
     restart: always
     ports:
       - "${MYSQL_PORT}:3306"
@@ -17,7 +17,7 @@ services:
   adminer:
     image: adminer
     depends_on:
-      - mysql
+      - values_db
     container_name: values-db-adminer
     restart: always
     ports:
@@ -31,9 +31,9 @@ services:
     build: app/.
     restart: always
     depends_on:
-      - mysql
+      - values_db
     links:
-      - mysql
+      - values_db
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
